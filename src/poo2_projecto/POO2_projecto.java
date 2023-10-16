@@ -15,6 +15,7 @@ public class POO2_projecto {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("Outro commit");
         System.out.println("Guilherme Jacob Panguana");
     }
     
