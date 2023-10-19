@@ -16,16 +16,19 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  *
  * @author Gui
  */
-public class Princinpal implements ActionListener{
+public class Princinpal implements ActionListener {
 
-    JPanel pnEsquerdo, pnDireito, pn2, pn3, pn4, pnPrice;
+    JPanel pnEsquerdo, pnDireito, pn2, pn3, pn4, pnPrice, painelActivo;
     JButton btnHome, btnCadastrar, btnHistorico, btnLogout, btnPesquisar;
     JFrame principal;
     JLabel iconeUsuario, nomeUsuario, fotoCarro, marca, preco;
     ImageIcon bimas;
     JTextField campoPesquisa;
+    Cadastrar c;
 
     public Princinpal() {
+        painelActivo = new JPanel();
+        c = new Cadastrar();
         pnEsquerdo = new JPanel();
         pnDireito = new JPanel();
         fotoCarro = new JLabel(new ImageIcon("Bimas.jpg"), JLabel.CENTER);
@@ -40,7 +43,7 @@ public class Princinpal implements ActionListener{
         principal = new JFrame();
         iconeUsuario = new JLabel("", new ImageIcon("login.png"), JLabel.CENTER);
         nomeUsuario = new JLabel("GUILHERME");
-        btnHome = new JButton("HOME");
+        btnHome = new JButton("H O M E");
         btnCadastrar = new JButton("CADASTRAR");
         btnHistorico = new JButton("HISTORICO");
         btnLogout = new JButton("LOGOUT");
@@ -54,20 +57,24 @@ public class Princinpal implements ActionListener{
         pnEsquerdo.setLayout(null);
         pnDireito.setLayout(null);
         pnPrice.setLayout(null);
-        pnEsquerdo.setBackground(new Color(217, 217, 217));
-        //pnDireito.setBackground(new Color(163, 163, 163));
-        pnDireito.setBackground(Color.BLUE);
+        this.setPainelActivo(pnDireito);
+        pnEsquerdo.setBackground(new Color(57, 57, 57));
+        pnDireito.setBackground(new Color(163, 163, 163));
         fotoCarro.setBackground(Color.yellow);
-        btnHome.setBackground(new Color(204, 100, 100));
+        btnHome.setBackground(new Color(57, 57, 57));
         btnHome.setForeground(Color.white);
-        btnCadastrar.setBackground(new Color(204, 100, 100));
+        btnCadastrar.setBackground(new Color(57, 57, 57));
         btnCadastrar.setForeground(Color.white);
-        btnHistorico.setBackground(new Color(204, 100, 100));
+        btnHistorico.setBackground(new Color(57, 57, 57));
         btnHistorico.setForeground(Color.white);
-        btnLogout.setBackground(new Color(204, 100, 100));
+        btnLogout.setBackground(new Color(57, 57, 57));
         btnLogout.setForeground(Color.white);
         pnPrice.setBackground(new Color(217, 217, 217, 150));
         preco.setHorizontalAlignment(JLabel.CENTER);
+       btnHome.setFocusable(false);
+       btnCadastrar.setFocusable(false);
+       btnHistorico.setFocusable(false);
+       btnLogout.setFocusable(false);
 
         //TAMANHOS
         Dimensionador.tamanho(principal, pnEsquerdo, .27f, 1f);
@@ -88,9 +95,12 @@ public class Princinpal implements ActionListener{
         pn3.setSize(447, 391);
         pn4.setSize(447, 391);
         pnPrice.setSize(317, 92);
-        
+
         //EVENTOS
         btnCadastrar.addActionListener(this);
+        btnHome.addActionListener(this);
+         //Teste de icone
+       // btnHome.add()
 
         //POSICOES
         Posicionar.cantoSuperiorEsquerdo(principal, pnEsquerdo);
@@ -128,11 +138,36 @@ public class Princinpal implements ActionListener{
         principal.setLocationRelativeTo(null);
         principal.setVisible(true);
 
-        
+    }
+
+    public JPanel getPainelActivo() {
+        return painelActivo;
+    }
+
+    public void setPainelActivo(JPanel painelActivo) {
+        this.painelActivo = painelActivo;
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        pnDireito.setVisible(false);
+        JPanel aux = new JPanel();
+        if (ae.getSource() == btnCadastrar) {
+            aux = c.getPnMae();
+            aux.setVisible(true);
+            if (painelActivo != aux) {
+                painelActivo.setVisible(false);
+                Posicionar.colocaDireita(principal, pnEsquerdo, aux);
+                setPainelActivo(aux);
+            }
+        }
+        if (ae.getSource() == btnHome) {
+            aux = pnDireito;
+            aux.setVisible(true);
+            if (painelActivo != aux) {
+                painelActivo.setVisible(false);
+                Posicionar.colocaDireita(principal, pnEsquerdo, aux);
+                setPainelActivo(aux);
+            }
+        }
     }
 }
