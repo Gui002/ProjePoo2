@@ -3,20 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package poo2_projecto;
-import View.Princinpal;
+package Model.VO;
 
 /**
  *
  * @author Gui
  */
-public class POO2_projecto {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new Princinpal();
-    }
+public class Carro_VO {
     
 }
