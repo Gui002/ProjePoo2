@@ -9,6 +9,8 @@ import Utilitarios.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -16,7 +18,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  *
  * @author Gui
  */
-public class Princinpal implements ActionListener {
+public class Princinpal implements ActionListener, MouseListener {
 
     JPanel pnEsquerdo, pnDireito, pn2, pn3, pn4, pnPrice, painelActivo;
     JButton btnHome, btnCadastrar, btnHistorico, btnLogout, btnPesquisar;
@@ -25,10 +27,12 @@ public class Princinpal implements ActionListener {
     ImageIcon bimas;
     JTextField campoPesquisa;
     Cadastrar c;
+    Carro car;
 
     public Princinpal() {
         painelActivo = new JPanel();
         c = new Cadastrar();
+        car = new Carro();
         pnEsquerdo = new JPanel();
         pnDireito = new JPanel();
         fotoCarro = new JLabel(new ImageIcon("Bimas.jpg"), JLabel.CENTER);
@@ -71,10 +75,10 @@ public class Princinpal implements ActionListener {
         btnLogout.setForeground(Color.white);
         pnPrice.setBackground(new Color(217, 217, 217, 150));
         preco.setHorizontalAlignment(JLabel.CENTER);
-       btnHome.setFocusable(false);
-       btnCadastrar.setFocusable(false);
-       btnHistorico.setFocusable(false);
-       btnLogout.setFocusable(false);
+        btnHome.setFocusable(false);
+        btnCadastrar.setFocusable(false);
+        btnHistorico.setFocusable(false);
+        btnLogout.setFocusable(false);
 
         //TAMANHOS
         Dimensionador.tamanho(principal, pnEsquerdo, .27f, 1f);
@@ -99,8 +103,10 @@ public class Princinpal implements ActionListener {
         //EVENTOS
         btnCadastrar.addActionListener(this);
         btnHome.addActionListener(this);
-         //Teste de icone
-       // btnHome.add()
+        pn3.addMouseListener(this);
+        fotoCarro.addMouseListener(this);
+        //Teste de icone
+        // btnHome.add()
 
         //POSICOES
         Posicionar.cantoSuperiorEsquerdo(principal, pnEsquerdo);
@@ -169,5 +175,36 @@ public class Princinpal implements ActionListener {
                 setPainelActivo(aux);
             }
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        JPanel aux = new JPanel();
+        if (me.getSource() == fotoCarro) {
+            aux = car.getPnMae();
+            aux.setVisible(true);
+            if (painelActivo != aux) {
+                painelActivo.setVisible(false);
+                Posicionar.colocaDireita(principal, pnEsquerdo, aux);
+                setPainelActivo(aux);
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        System.out.println("suppp");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
     }
 }

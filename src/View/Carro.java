@@ -16,15 +16,12 @@ import java.awt.Color;
  */
 public class Carro {
 
-    //JFrame pnMae;
-    JPanel pnMae;
-    JPanel pnDescCarro, pnFotoCarro, pnFoto;
+    JPanel pnMae, pnDescCarro, pnFotoCarro, pnFoto;
     JButton btnVender, btnEditar, btnRemover;
     JLabel lblmarca, lblmodelo, lblpreco, lblchassi, lblcor, lblkm, lbltransmissao, lbltipoCombustivel;
     JLabel fotoCarro;
 
     Carro() {
-        //pnMae = new JFrame();
         pnMae = new JPanel();
         pnDescCarro = new JPanel();
         pnFotoCarro = new JPanel();
@@ -44,7 +41,6 @@ public class Carro {
         lbltipoCombustivel = new JLabel();
 
         //SETS
-        // pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pnMae.setSize(1051, 1024);
         pnMae.setLayout(null);
         pnFotoCarro.setLayout(null);
