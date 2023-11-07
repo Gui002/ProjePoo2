@@ -112,6 +112,8 @@ public class Cadastrar extends JFrame {
     }
     
     
-    
+    public static void main(String[] args) {
+        new Cadastrar();
+    }
     
 }

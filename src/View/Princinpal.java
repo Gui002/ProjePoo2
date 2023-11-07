@@ -20,9 +20,9 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  */
 public class Princinpal implements ActionListener, MouseListener {
 
-    JPanel pnEsquerdo, pnDireito, pn2, pn3, pn4, pnPrice, painelActivo;
+    public static JPanel pnEsquerdo, pnDireito, pn2, pn3, pn4, pnPrice, painelActivo;
     JButton btnHome, btnCadastrar, btnHistorico, btnLogout, btnPesquisar;
-    JFrame principal;
+    public static JFrame principal;
     JLabel iconeUsuario, nomeUsuario, fotoCarro, marca, preco;
     ImageIcon bimas;
     JTextField campoPesquisa;
@@ -30,8 +30,8 @@ public class Princinpal implements ActionListener, MouseListener {
     Carro car;
 
     public Princinpal() {
-        painelActivo = new JPanel();
         c = new Cadastrar();
+        painelActivo = new JPanel();
         car = new Carro();
         pnEsquerdo = new JPanel();
         pnDireito = new JPanel();
@@ -150,7 +150,7 @@ public class Princinpal implements ActionListener, MouseListener {
         return painelActivo;
     }
 
-    public void setPainelActivo(JPanel painelActivo) {
+    public  void setPainelActivo(JPanel painelActivo) {
         this.painelActivo = painelActivo;
     }
 
@@ -175,6 +175,10 @@ public class Princinpal implements ActionListener, MouseListener {
                 setPainelActivo(aux);
             }
         }
+
+//        if(ae.getSource() == car.btnVender){
+//            System.out.println("Olaaa");
+//        }
     }
 
     @Override

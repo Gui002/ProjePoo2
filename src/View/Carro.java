@@ -7,21 +7,26 @@ package View;
 
 import Utilitarios.Dimensionador;
 import Utilitarios.Posicionar;
+import static View.Princinpal.principal;
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author Gui
  */
-public class Carro {
+public class Carro implements ActionListener {
 
     JPanel pnMae, pnDescCarro, pnFotoCarro, pnFoto;
-    JButton btnVender, btnEditar, btnRemover;
+    public static JButton btnVender, btnEditar, btnRemover;
     JLabel lblmarca, lblmodelo, lblpreco, lblchassi, lblcor, lblkm, lbltransmissao, lbltipoCombustivel;
     JLabel fotoCarro;
+    Cliente client;
 
     Carro() {
+        client = new Cliente();
         pnMae = new JPanel();
         pnDescCarro = new JPanel();
         pnFotoCarro = new JPanel();
@@ -57,6 +62,9 @@ public class Carro {
         lbltransmissao.setBorder(BorderFactory.createTitledBorder("Transmissão"));
         lbltipoCombustivel.setBorder(BorderFactory.createTitledBorder("Combustivel"));
         pnFoto.setBackground(Color.yellow);
+
+        //EVENTOS
+        btnVender.addActionListener(this);
 
         //TAMANHOS
         Dimensionador.tamanho(pnMae, pnDescCarro, .5f, 1f);
@@ -108,6 +116,21 @@ public class Carro {
 
     public JPanel getPnMae() {
         return pnMae;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        JPanel aux = new JPanel();
+        if (ae.getSource() == btnVender) {
+            aux = client.getPnMae();
+            aux.setVisible(true);
+            if (Princinpal.painelActivo != aux) {
+                Princinpal.painelActivo.setVisible(false);
+                Posicionar.colocaDireita(Princinpal.principal, Princinpal.pnEsquerdo, aux);
+                Princinpal.painelActivo = aux;
+            }
+        }
+
     }
 
     public static void main(String[] args) {
