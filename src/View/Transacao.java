@@ -18,10 +18,11 @@ public class Transacao {
 
     JFrame pnMae;
     JPanel pnTransacao, pnParcela;
-    JLabel nomeCliente, marca, preco, status, data, nrParcelas, precoParcela;
-    JTextField valAdicional;
+    JLabel nomeCliente, marca, preco, status, data, nrParcelas, precoParcela, iconeTransacao, iconeDinheiro;
+    JTextField numParcelas;
+    JButton btnConfirmar, btnCancelar;
     JComboBox formaPagamento, metodoPagamento;
-
+    
     public Transacao() {
         pnMae = new JFrame();
         pnTransacao = new JPanel();
@@ -32,8 +33,12 @@ public class Transacao {
         data = new JLabel();
         precoParcela = new JLabel();
         nrParcelas = new JLabel();
-        valAdicional = new JTextField();
+        numParcelas = new JTextField();
         pnParcela = new JPanel();
+        btnCancelar = new JButton("CANCELAR");
+        btnConfirmar = new JButton("CONFIRMAR");
+        iconeTransacao = new JLabel("", new ImageIcon("icones/transacao.png"), JLabel.CENTER);
+        iconeDinheiro = new JLabel("", new ImageIcon("icones/dinheiro.png"), JLabel.CENTER);
         String[] metods = {"Cartão de credito", "Cash", "Carteira movel"};
         metodoPagamento = new JComboBox(metods);
         String[] formas = {"--Selecionar--", "Completo", "Parcelado"};
@@ -51,10 +56,11 @@ public class Transacao {
         nomeCliente.setBorder(BorderFactory.createTitledBorder("Nome do Cliente"));
         preco.setBorder(BorderFactory.createTitledBorder("Valor a pagar"));
         status.setBorder(BorderFactory.createTitledBorder("Estado"));
-        data.setBorder(BorderFactory.createTitledBorder("Data"));       
-        metodoPagamento.setBorder(BorderFactory.createTitledBorder("Metodo de pagamento"));        
-        nrParcelas.setBorder(BorderFactory.createTitledBorder("Numde de parcelas"));        
-        precoParcela.setBorder(BorderFactory.createTitledBorder("Preço da parcelas"));        
+        data.setBorder(BorderFactory.createTitledBorder("Data"));
+        metodoPagamento.setBorder(BorderFactory.createTitledBorder("Metodo de pagamento"));
+        nrParcelas.setBorder(BorderFactory.createTitledBorder("Numde de parcelas"));
+        precoParcela.setBorder(BorderFactory.createTitledBorder("Preço da parcelas"));
+        numParcelas.setBorder(BorderFactory.createTitledBorder("Pacelas a pagar"));
         pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //TAMANHOS 
@@ -63,20 +69,35 @@ public class Transacao {
         metodoPagamento.setSize(477, 61);
         formaPagamento.setSize(477, 61);
         precoParcela.setSize(477, 61);
+        numParcelas.setSize(477, 61);
         nomeCliente.setSize(477, 61);
         nrParcelas.setSize(477, 61);
         status.setSize(477, 61);
         marca.setSize(477, 61);
         preco.setSize(477, 61);
         data.setSize(477, 61);
+        iconeTransacao.setSize(80, 80);
+        iconeDinheiro.setSize(80, 80);
+        btnConfirmar.setSize(150, 50);
+        btnCancelar.setSize(150, 50);
 
         //POSICOES
         Posicionar.centralizar(pnTransacao, formaPagamento);
+        Posicionar.centralizaTopo(pnTransacao, iconeTransacao);
+        Posicionar.moverCimaBaixo(iconeTransacao, 45);
         Posicionar.colocaDireita(pnMae, pnTransacao, pnParcela);
+        Posicionar.centralizaTopo(pnParcela, iconeDinheiro);
+        Posicionar.moverCimaBaixo(iconeDinheiro, 45);
         Posicionar.centralizar(pnParcela, metodoPagamento);
         Posicionar.centralizaTopo(pnParcela, nrParcelas);
         Posicionar.moverCimaBaixo(nrParcelas, 150);
         Posicionar.colocaBaixo(pnParcela, nrParcelas, precoParcela);
+        Posicionar.colocaBaixo(pnParcela, precoParcela, numParcelas);
+        Posicionar.cantoInferiorDireito(pnParcela, btnConfirmar);
+        Posicionar.moverCimaBaixo(btnConfirmar, -45);
+        Posicionar.moverEsquerdaDireita(btnConfirmar, -20);
+        Posicionar.colocaEsquerda(pnParcela, btnConfirmar, btnCancelar);
+        Posicionar.moverEsquerdaDireita(btnCancelar, -5);
         Posicionar.centralizaTopo(pnTransacao, nomeCliente);
         Posicionar.moverCimaBaixo(nomeCliente, 150);
         Posicionar.colocaBaixo(pnTransacao, nomeCliente, marca);
@@ -86,8 +107,6 @@ public class Transacao {
         pnMae.setVisible(true);
         pnMae.setLocationRelativeTo(null);
     }
-
-   
 
     public static void main(String[] args) {
         new Transacao();

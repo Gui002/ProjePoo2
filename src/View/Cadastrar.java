@@ -21,7 +21,8 @@ public class Cadastrar extends JFrame {
     JTextField marca, modelo, preco, chassi, cor, km;
     JComboBox transmissao, tipoCombustivel;
     JButton btnAdicionar, btnSalvar, btnCancelar;
-    
+    JLabel iconeDescricao;
+
     Cadastrar() {        
         //pnMae = new JFrame();
         pnMae = new JPanel();
@@ -40,6 +41,8 @@ public class Cadastrar extends JFrame {
         transmissao = new JComboBox(transm);
         String[] combus = {"Diesel", "Gasolina"};
         tipoCombustivel = new JComboBox(combus);
+       iconeDescricao = new JLabel("", new ImageIcon("icones/descricao.png"), JLabel.CENTER);
+       
        
         //SETS
         pnMae.setSize(1051, 1024);

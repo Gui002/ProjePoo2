@@ -20,22 +20,24 @@ public class Cliente {
     //JFrame pnMae;
     JPanel pnMae;
     JPanel pnFormCliente;
+    JLabel iconeCliente;
     JTextField nomeCliente, apelidoCliente, contactoCliente, dataNascimento, endereco;
     JButton btnSalvar;
 
     Cliente() {
-      //  pnMae = new JFrame();
-       pnMae = new JPanel();
+        //  pnMae = new JFrame();
+        pnMae = new JPanel();
         pnFormCliente = new JPanel();
         nomeCliente = new JTextField();
         apelidoCliente = new JTextField();
         contactoCliente = new JTextField();
         dataNascimento = new JTextField();
         endereco = new JTextField();
+        iconeCliente = new JLabel("", new ImageIcon("icones/userAzul.png"), JLabel.CENTER);
         btnSalvar = new JButton("SALVAR");
 
         //SETS
-      //  pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //  pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pnMae.setSize(1051, 1024);
         pnMae.setLayout(null);
         pnFormCliente.setLayout(null);
@@ -48,6 +50,7 @@ public class Cliente {
         //TAMANHOS 
         Dimensionador.tamanho(pnMae, pnFormCliente, .5f, 1f);
         nomeCliente.setSize(477, 61);
+        iconeCliente.setSize(80, 80);
         apelidoCliente.setSize(477, 61);
         contactoCliente.setSize(477, 61);
         dataNascimento.setSize(477, 61);
@@ -55,6 +58,8 @@ public class Cliente {
 
         //POSICOES
         Posicionar.centralizar(pnMae, pnFormCliente);
+        Posicionar.centralizaTopo(pnFormCliente, iconeCliente);
+        Posicionar.moverCimaBaixo(iconeCliente, 45);
         Posicionar.centralizaTopo(pnFormCliente, nomeCliente);
         Posicionar.moverCimaBaixo(nomeCliente, 150);
         Posicionar.colocaBaixo(pnFormCliente, nomeCliente, apelidoCliente);
@@ -72,8 +77,8 @@ public class Cliente {
     public JPanel getPnMae() {
         return pnMae;
     }
-    
+
     public static void main(String[] args) {
-      //  new Cliente();
+        //  new Cliente();
     }
 }
