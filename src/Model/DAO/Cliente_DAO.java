@@ -9,11 +9,6 @@ package Model.DAO;
  *
  * @author Gui
  */
-public class Carro_DAO implements CRUD{
-
-    @Override
-    public void select() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public class Cliente_DAO {
     
 }

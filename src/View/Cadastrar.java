@@ -48,8 +48,8 @@ public class Cadastrar extends JFrame {
         pnFoto.setLayout(null);
        // pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pnCadastro.setBorder(BorderFactory.createTitledBorder("CADASTRAR"));
-        pnCadastro.setBackground(new Color(163, 163, 163));
-        pnFoto.setBackground(new Color(163, 163, 163));
+        //pnCadastro.setBackground(new Color(163, 163, 163));
+       // pnFoto.setBackground(new Color(163, 163, 163));
         pnFoto.setBorder(BorderFactory.createTitledBorder("FOTO"));
         marca.setBorder(BorderFactory.createTitledBorder("Marca"));
         modelo.setBorder(BorderFactory.createTitledBorder("Modelo"));
