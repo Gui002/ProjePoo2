@@ -19,9 +19,9 @@ import java.awt.event.ActionListener;
  */
 public class Carro implements ActionListener {
 
-    JPanel pnMae, pnDescCarro, pnFotoCarro, pnFoto;
+    JPanel pnMae, pnDescCarro, pnFotoCarro;
     public static JButton btnVender, btnEditar, btnRemover;
-    JLabel lblmarca, lblmodelo, lblpreco, lblchassi, lblcor, lblkm, lbltransmissao, lbltipoCombustivel;
+    public static JLabel lblmarca, lblmodelo, lblpreco, lblchassi, lblcor, lblkm, lbltransmissao, lbltipoCombustivel;
     JLabel fotoCarro;
     Cliente client;
 
@@ -30,11 +30,10 @@ public class Carro implements ActionListener {
         pnMae = new JPanel();
         pnDescCarro = new JPanel();
         pnFotoCarro = new JPanel();
-        pnFoto = new JPanel();
+        fotoCarro = new JLabel("", new ImageIcon("Bimas.jpg"), JLabel.CENTER);
         btnRemover = new JButton("REMOVER");
         btnVender = new JButton("VENDER");
         btnEditar = new JButton("EDITAR");
-        fotoCarro = new JLabel();
         lblchassi = new JLabel();
         lblcor = new JLabel();
         lblpreco = new JLabel();
@@ -49,7 +48,7 @@ public class Carro implements ActionListener {
         pnMae.setSize(1051, 1024);
         pnMae.setLayout(null);
         pnFotoCarro.setLayout(null);
-        pnFoto.setLayout(null);
+       // fotoCarro.setLayout(null);
         pnDescCarro.setLayout(null);
         pnFotoCarro.setBorder(BorderFactory.createTitledBorder("Foto"));
         pnDescCarro.setBorder(BorderFactory.createTitledBorder("Descrição"));
@@ -61,7 +60,7 @@ public class Carro implements ActionListener {
         lblkm.setBorder(BorderFactory.createTitledBorder("Km"));
         lbltransmissao.setBorder(BorderFactory.createTitledBorder("Transmissão"));
         lbltipoCombustivel.setBorder(BorderFactory.createTitledBorder("Combustivel"));
-        pnFoto.setBackground(Color.yellow);
+        
 
         //EVENTOS
         btnVender.addActionListener(this);
@@ -69,7 +68,7 @@ public class Carro implements ActionListener {
         //TAMANHOS
         Dimensionador.tamanho(pnMae, pnDescCarro, .5f, 1f);
         Dimensionador.tamanho(pnMae, pnFotoCarro, .5f, 1f);
-        Dimensionador.tamanho(pnFotoCarro, pnFoto, .98f, .97f);
+        Dimensionador.tamanho(pnFotoCarro, fotoCarro, .98f, .97f);
         btnVender.setSize(150, 50);
         btnRemover.setSize(150, 50);
         btnEditar.setSize(150, 50);
@@ -85,13 +84,13 @@ public class Carro implements ActionListener {
         //POSICOES
         Posicionar.cantoSuperiorEsquerdo(pnMae, pnDescCarro);
         Posicionar.colocaDireita(pnMae, pnDescCarro, pnFotoCarro);
-        Posicionar.centralizar(pnFotoCarro, pnFoto);
-        Posicionar.cantoInferiorDireito(pnFoto, btnVender);
+        Posicionar.centralizar(pnFotoCarro, fotoCarro);
+        Posicionar.cantoInferiorDireito(fotoCarro, btnVender);
         Posicionar.moverCimaBaixo(btnVender, -45);
         Posicionar.moverEsquerdaDireita(btnVender, -20);
-        Posicionar.colocaEsquerda(pnFoto, btnVender, btnEditar);
+        Posicionar.colocaEsquerda(fotoCarro, btnVender, btnEditar);
         Posicionar.moverEsquerdaDireita(btnEditar, -5);
-        Posicionar.colocaEsquerda(pnFoto, btnEditar, btnRemover);
+        Posicionar.colocaEsquerda(fotoCarro, btnEditar, btnRemover);
         Posicionar.moverEsquerdaDireita(btnRemover, -5);
         Posicionar.centralizaTopo(pnDescCarro, lblmarca);
         Posicionar.moverCimaBaixo(lblmarca, 150);
@@ -131,6 +130,10 @@ public class Carro implements ActionListener {
             }
         }
 
+    }
+    
+    public void trocaTela(JPanel pn){
+        
     }
 
     public static void main(String[] args) {

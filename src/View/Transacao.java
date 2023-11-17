@@ -16,7 +16,8 @@ import java.awt.Color;
  */
 public class Transacao {
 
-    JFrame pnMae;
+    //JFrame pnMae;
+    JPanel pnMae;
     JPanel pnTransacao, pnParcela;
     JLabel nomeCliente, marca, preco, status, data, nrParcelas, precoParcela, iconeTransacao, iconeDinheiro;
     JTextField numParcelas;
@@ -24,7 +25,8 @@ public class Transacao {
     JComboBox formaPagamento, metodoPagamento;
     
     public Transacao() {
-        pnMae = new JFrame();
+       // pnMae = new JFrame();
+        pnMae = new JPanel();
         pnTransacao = new JPanel();
         nomeCliente = new JLabel();
         marca = new JLabel();
@@ -61,7 +63,7 @@ public class Transacao {
         nrParcelas.setBorder(BorderFactory.createTitledBorder("Numde de parcelas"));
         precoParcela.setBorder(BorderFactory.createTitledBorder("Preço da parcelas"));
         numParcelas.setBorder(BorderFactory.createTitledBorder("Pacelas a pagar"));
-        pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      //  pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //TAMANHOS 
         Dimensionador.tamanho(pnMae, pnTransacao, .5f, 1f);
@@ -105,8 +107,13 @@ public class Transacao {
         Posicionar.colocaBaixo(pnTransacao, preco, status);
         Posicionar.cantoSuperiorEsquerdo(pnMae, pnTransacao);
         pnMae.setVisible(true);
-        pnMae.setLocationRelativeTo(null);
+   //     pnMae.setLocationRelativeTo(null);
     }
+
+    public JPanel getPnMae() {
+        return pnMae;
+    }
+        
 
     public static void main(String[] args) {
         new Transacao();

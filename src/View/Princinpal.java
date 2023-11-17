@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Carro_controller;
 import Utilitarios.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -21,30 +23,40 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  */
 public class Princinpal implements ActionListener, MouseListener {
 
-    public static JPanel pnEsquerdo, pnDireito, pn2, pn3, pn4, pnPrice, painelActivo;
+    public static JPanel pnEsquerdo, pnDireito, painelActivo;
     JButton btnHome, btnCadastrar, btnHistorico, btnLogout, btnPesquisar, btnVendas;
     public static JFrame principal;
-    JLabel iconeUsuario, nomeUsuario, fotoCarro, marca, preco;
-    ImageIcon bimas;
+    JLabel iconeUsuario, nomeUsuario;
+    ImageIcon bimas, bim, toyo, lb;
     JTextField campoPesquisa;
-    Cadastrar c;
+    Cadastrar cadastro;
     Carro car;
+    JButton[] carros;
+    Estrutura_Carro test[];
+    
+    //Tetando 
+    ArrayList<Estrutura_Carro> es;
+    //
 
     public Princinpal() {
-        c = new Cadastrar();
+        cadastro = new Cadastrar();
         car = new Carro();
+        es = Carro_controller.preencherMain();
         painelActivo = new JPanel();
         pnEsquerdo = new JPanel();
         pnDireito = new JPanel();
-        fotoCarro = new JLabel(new ImageIcon("Bimas.jpg"), JLabel.CENTER);
-        marca = new JLabel("BMW");
-        preco = new JLabel("2 . 0 0 0 . 0 0 0  MZN");
+        bimas = new ImageIcon("Bimas.jpg");
+        bim = new ImageIcon("X6.jpeg");
+        toyo = new ImageIcon("Toyota.jpeg");
+        lb = new ImageIcon("Lambo.jpeg");
+        test = new Estrutura_Carro[4];
+//        test[0] = new Estrutura_Carro("ZIMAS", "2 . 0 0 0 . 0 0 0  MZN", bimas);
+//        test[1] = new Estrutura_Carro("BMW X6", "2 . 0 0 0 . 0 0 0  MZN", bim);
+//        test[2] = new Estrutura_Carro("BMW X6", "2 . 0 0 0 . 0 0 0  MZN", toyo);
+//        test[3] = new Estrutura_Carro("BMW X6", "2 . 0 0 0 . 0 0 0  MZN", lb);
         btnPesquisar = new JButton("PESQUISAR");
         campoPesquisa = new JTextField();
-        pn2 = new JPanel();
-        pn3 = new JPanel();
-        pn4 = new JPanel();
-        pnPrice = new JPanel();
+        carros = new JButton[4];
         Font fonte = new Font("Arial", 10, 15);
         principal = new JFrame();
         iconeUsuario = new JLabel("", new ImageIcon("icones/User.png"), JLabel.CENTER);
@@ -54,7 +66,6 @@ public class Princinpal implements ActionListener, MouseListener {
         btnHistorico = new JButton("H I S T O R I C O");
         btnLogout = new JButton("L O G O U T");
         btnVendas = new JButton("V E N D A S");
-        bimas = new ImageIcon("Bimas.jpg");
         JLabel icon_home = new JLabel(new ImageIcon("icones/home_2.png"));
         JLabel icon_cadastrar = new JLabel(new ImageIcon("icones/cadastrar.png"));
         JLabel icon_historico = new JLabel(new ImageIcon("icones/historico.png"));
@@ -68,10 +79,9 @@ public class Princinpal implements ActionListener, MouseListener {
         principal.setLayout(null);
         pnEsquerdo.setLayout(null);
         pnDireito.setLayout(null);
-        pnPrice.setLayout(null);
         this.setPainelActivo(pnDireito);
         pnEsquerdo.setBackground(new Color(57, 57, 57));
-        pnDireito.setBackground(new Color(163, 163, 163));
+        //pnDireito.setBackground(new Color(163, 163, 163));
         btnHome.setBackground(new Color(57, 57, 57));
         btnHome.setBorder(BorderFactory.createEmptyBorder());
         btnHome.setForeground(Color.white);
@@ -88,8 +98,6 @@ public class Princinpal implements ActionListener, MouseListener {
         btnLogout.setBorder(BorderFactory.createEmptyBorder());
         btnLogout.setBackground(new Color(57, 57, 57));
         btnLogout.setForeground(Color.white);
-        pnPrice.setBackground(new Color(217, 217, 217, 150));
-        preco.setHorizontalAlignment(JLabel.CENTER);
         nomeUsuario.setForeground(new Color(0, 201, 201));
         btnHome.setFocusable(false);
         btnCadastrar.setFocusable(false);
@@ -105,18 +113,17 @@ public class Princinpal implements ActionListener, MouseListener {
         Dimensionador.tamanho(pnEsquerdo, btnVendas, 1f, .08f);
         Dimensionador.tamanho(pnEsquerdo, btnLogout, 1f, .08f);
         Dimensionador.tamanho(pnEsquerdo, btnCadastrar, 1f, .08f);
-        Dimensionador.tamanho(pnDireito, fotoCarro, .3f, .3f);
+        //   Dimensionador.tamanho(pnDireito, fotoCarro, .3f, .3f);
         Dimensionador.tamanho(pnDireito, campoPesquisa, .7f, .04f);
         Dimensionador.tamanho(pnDireito, btnPesquisar, .1f, .04f);
         iconeUsuario.setSize(64, 64);
         nomeUsuario.setSize(100, 10);
-        marca.setSize(50, 10);
-        preco.setSize(300, 10);
-        fotoCarro.setSize(447, 391);
-        pn2.setSize(447, 391);
-        pn3.setSize(447, 391);
-        pn4.setSize(447, 391);
-        pnPrice.setSize(317, 92);
+        for (int i = 0; i < carros.length; i++) {
+            carros[i] = new JButton();
+            carros[i].setSize(447, 391);
+            //    carros[i].setBackground(Color.yellow);
+            carros[i].setBorder(BorderFactory.createEmptyBorder());
+        }
 
         //Icones
         btnHome.add(icon_home);
@@ -141,20 +148,22 @@ public class Princinpal implements ActionListener, MouseListener {
         btnVendas.addMouseListener(this);
         btnLogout.addActionListener(this);
         btnLogout.addMouseListener(this);
-        pn3.addMouseListener(this);
-        fotoCarro.addMouseListener(this);
+        carros[0].addActionListener(this);
         //Teste de icone
         // btnHome.add()
 
+        //Gambiaras_test
+        carros[0].add(es.get(0).getLbMae());
+        carros[0].add(es.get(1).getLbMae());
+//        carros[1].add(test[1].getLbMae());
+//        carros[2].add(test[2].getLbMae());
+//        carros[3].add(test[3].getLbMae());
         //POSICOES
         Posicionar.cantoSuperiorEsquerdo(principal, pnEsquerdo);
         Posicionar.centralizaTopo(pnEsquerdo, iconeUsuario);
         Posicionar.moverCimaBaixo(iconeUsuario, 30);
         Posicionar.colocaBaixo(pnEsquerdo, iconeUsuario, nomeUsuario);
         Posicionar.colocaDireita(principal, pnEsquerdo, pnDireito);
-        Posicionar.cantoSuperiorEsquerdo(pnDireito, fotoCarro);
-        Posicionar.moverCimaBaixo(fotoCarro, 150);
-        Posicionar.moverEsquerdaDireita(fotoCarro, 50);
         Posicionar.centralizar(pnEsquerdo, btnHome);
         Posicionar.moverCimaBaixo(btnHome, -200);
         Posicionar.cantoInferiorEsquerdo(pnEsquerdo, btnLogout);
@@ -165,19 +174,16 @@ public class Princinpal implements ActionListener, MouseListener {
         Posicionar.moverCimaBaixo(btnVendas, 2);
         Posicionar.colocaBaixo(pnEsquerdo, btnVendas, btnHistorico);
         Posicionar.moverCimaBaixo(btnHistorico, 2);
-        Posicionar.colocaDireita(pnDireito, fotoCarro, pn2);
-        Posicionar.moverEsquerdaDireita(pn2, 50);
-        Posicionar.colocaBaixo(pnDireito, fotoCarro, pn3);
-        Posicionar.moverCimaBaixo(pn3, 50);
-        Posicionar.colocaBaixo(pnDireito, pn2, pn4);
-        Posicionar.moverCimaBaixo(pn4, 50);
-        Posicionar.centralizaBaixo(fotoCarro, pnPrice);
-        Posicionar.moverCimaBaixo(pnPrice, -35);
-        Posicionar.centralizar(pnPrice, marca);
-        Posicionar.moverCimaBaixo(marca, -20);
-        Posicionar.centralizar(pnPrice, preco);
-        Posicionar.moverCimaBaixo(preco, 20);
-        Posicionar.colocaCima(pnDireito, fotoCarro, campoPesquisa);
+        Posicionar.cantoSuperiorEsquerdo(pnDireito, carros[0]);
+        Posicionar.moverCimaBaixo(carros[0], 150);
+        Posicionar.moverEsquerdaDireita(carros[0], 50);
+        Posicionar.colocaDireita(pnDireito, carros[0], carros[1]);
+        Posicionar.moverEsquerdaDireita(carros[1], 50);
+        Posicionar.colocaBaixo(pnDireito, carros[0], carros[2]);
+        Posicionar.moverCimaBaixo(carros[2], 50);
+        Posicionar.colocaBaixo(pnDireito, carros[1], carros[3]);
+        Posicionar.moverCimaBaixo(carros[3], 50);
+        Posicionar.colocaCima(pnDireito, carros[0], campoPesquisa);
         Posicionar.moverCimaBaixo(campoPesquisa, -90);
         Posicionar.colocaDireita(pnDireito, campoPesquisa, btnPesquisar);
         Posicionar.moverEsquerdaDireita(btnPesquisar, 10);
@@ -185,6 +191,14 @@ public class Princinpal implements ActionListener, MouseListener {
         principal.setVisible(true);
 
     }
+    
+    //Gambiara 2 Test
+    
+    
+    
+    
+    
+    //
 
     public JPanel getPainelActivo() {
         return painelActivo;
@@ -198,41 +212,32 @@ public class Princinpal implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent ae) {
         JPanel aux = new JPanel();
         if (ae.getSource() == btnCadastrar) {
-            aux = c.getPnMae();
-            aux.setVisible(true);
-            if (painelActivo != aux) {
-                painelActivo.setVisible(false);
-                Posicionar.colocaDireita(principal, pnEsquerdo, aux);
-                setPainelActivo(aux);
-            }
+            aux = cadastro.getPnMae();
+            this.trocaTela(aux);
         }
         if (ae.getSource() == btnHome) {
             aux = pnDireito;
-            aux.setVisible(true);
-            if (painelActivo != aux) {
-                painelActivo.setVisible(false);
-                Posicionar.colocaDireita(principal, pnEsquerdo, aux);
-                setPainelActivo(aux);
-            }
+            this.trocaTela(aux);
+        }
+        if (ae.getSource() == carros[0]) {
+            aux = car.getPnMae();            
+            this.trocaTela(aux);
+
         }
 
-//        if(ae.getSource() == car.btnVender){
-//            System.out.println("Olaaa");
-//        }
+    }
+    
+    public void trocaTela(JPanel aux) {
+        aux.setVisible(true);
+        if (painelActivo != aux) {
+            painelActivo.setVisible(false);
+            Posicionar.colocaDireita(principal, pnEsquerdo, aux);
+            setPainelActivo(aux);
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        JPanel aux = new JPanel();
-        if (me.getSource() == fotoCarro) {
-            aux = car.getPnMae();
-            aux.setVisible(true);
-            if (painelActivo != aux) {
-                painelActivo.setVisible(false);
-                Posicionar.colocaDireita(principal, pnEsquerdo, aux);
-                setPainelActivo(aux);
-            }
-        }
 
     }
 

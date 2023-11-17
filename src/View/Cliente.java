@@ -7,6 +7,8 @@ package View;
 
 import Utilitarios.Dimensionador;
 import Utilitarios.Posicionar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.*;
 import javax.swing.JPanel;
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
  *
  * @author Gui
  */
-public class Cliente {
+public class Cliente implements ActionListener{
 
     //JFrame pnMae;
     JPanel pnMae;
@@ -23,10 +25,11 @@ public class Cliente {
     JLabel iconeCliente;
     JTextField nomeCliente, apelidoCliente, contactoCliente, dataNascimento, endereco;
     JButton btnSalvar;
-
+    Transacao t;
     Cliente() {
         //  pnMae = new JFrame();
         pnMae = new JPanel();
+        t = new Transacao();
         pnFormCliente = new JPanel();
         nomeCliente = new JTextField();
         apelidoCliente = new JTextField();
@@ -55,6 +58,9 @@ public class Cliente {
         contactoCliente.setSize(477, 61);
         dataNascimento.setSize(477, 61);
         btnSalvar.setSize(150, 50);
+        
+        //EVENTOS
+        btnSalvar.addActionListener(this);
 
         //POSICOES
         Posicionar.centralizar(pnMae, pnFormCliente);
@@ -78,6 +84,20 @@ public class Cliente {
         return pnMae;
     }
 
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+            JPanel aux = new JPanel();
+        if (ae.getSource() == btnSalvar) {
+            aux = t.getPnMae();
+            aux.setVisible(true);
+            if (Princinpal.painelActivo != aux) {
+                Princinpal.painelActivo.setVisible(false);
+                Posicionar.colocaDireita(Princinpal.principal, Princinpal.pnEsquerdo, aux);
+                Princinpal.painelActivo = aux;
+            }
+        }
+    }
     public static void main(String[] args) {
         //  new Cliente();
     }

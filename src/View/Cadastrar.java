@@ -41,7 +41,7 @@ public class Cadastrar extends JFrame {
         transmissao = new JComboBox(transm);
         String[] combus = {"Diesel", "Gasolina"};
         tipoCombustivel = new JComboBox(combus);
-       iconeDescricao = new JLabel("", new ImageIcon("icones/descricao.png"), JLabel.CENTER);
+        iconeDescricao = new JLabel("", new ImageIcon("icones/descricao.png"), JLabel.CENTER);
        
        
         //SETS
@@ -67,6 +67,7 @@ public class Cadastrar extends JFrame {
         //TAMANHOS
         Dimensionador.tamanho(pnMae, pnCadastro, .5f, 1f);
         Dimensionador.tamanho(pnMae, pnFoto, .5f, 1f);
+        iconeDescricao.setSize(80,80);
         marca.setSize(477, 61);
         modelo.setSize(477, 61);
         chassi.setSize(477, 61);
@@ -78,10 +79,12 @@ public class Cadastrar extends JFrame {
         btnAdicionar.setSize(477, 61);
         transmissao.setSize(477, 61);
         tipoCombustivel.setSize(477, 61);
-
+        
         //POSICOES
         Posicionar.colocaDireita(pnMae, pnCadastro, pnFoto);
         Posicionar.cantoSuperiorEsquerdo(pnMae, pnCadastro);
+        Posicionar.centralizaTopo(pnCadastro, iconeDescricao);
+        Posicionar.moverCimaBaixo(iconeDescricao, 45);
         Posicionar.cantoInferiorDireito(pnFoto, btnSalvar);
         Posicionar.moverCimaBaixo(btnSalvar, -45);
         Posicionar.moverEsquerdaDireita(btnSalvar, -20);
