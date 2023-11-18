@@ -80,6 +80,7 @@ public class Carro implements ActionListener {
         lblkm.setSize(477, 61);
         lbltransmissao.setSize(477, 61);
         lbltipoCombustivel.setSize(477, 61);
+        
 
         //POSICOES
         Posicionar.cantoSuperiorEsquerdo(pnMae, pnDescCarro);

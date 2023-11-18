@@ -24,36 +24,28 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 public class Princinpal implements ActionListener, MouseListener {
 
     public static JPanel pnEsquerdo, pnDireito, painelActivo;
-    JButton btnHome, btnCadastrar, btnHistorico, btnLogout, btnPesquisar, btnVendas;
+    JButton btnHome, btnCadastrar, btnHistorico, btnLogout, btnPesquisar, btnVendas, btnFrente, btnTra;
     public static JFrame principal;
     JLabel iconeUsuario, nomeUsuario;
     ImageIcon bimas, bim, toyo, lb;
     JTextField campoPesquisa;
     Cadastrar cadastro;
     Carro car;
+    int posCarro;
     JButton[] carros;
-    Estrutura_Carro test[];
     
     //Tetando 
-    ArrayList<Estrutura_Carro> es;
+    ArrayList<Estrutura_Carro> es;    
     //
 
     public Princinpal() {
         cadastro = new Cadastrar();
         car = new Carro();
-        es = Carro_controller.preencherMain();
+        posCarro = 0;
+        es = Carro_controller.preencherMain();        
         painelActivo = new JPanel();
         pnEsquerdo = new JPanel();
         pnDireito = new JPanel();
-        bimas = new ImageIcon("Bimas.jpg");
-        bim = new ImageIcon("X6.jpeg");
-        toyo = new ImageIcon("Toyota.jpeg");
-        lb = new ImageIcon("Lambo.jpeg");
-        test = new Estrutura_Carro[4];
-//        test[0] = new Estrutura_Carro("ZIMAS", "2 . 0 0 0 . 0 0 0  MZN", bimas);
-//        test[1] = new Estrutura_Carro("BMW X6", "2 . 0 0 0 . 0 0 0  MZN", bim);
-//        test[2] = new Estrutura_Carro("BMW X6", "2 . 0 0 0 . 0 0 0  MZN", toyo);
-//        test[3] = new Estrutura_Carro("BMW X6", "2 . 0 0 0 . 0 0 0  MZN", lb);
         btnPesquisar = new JButton("PESQUISAR");
         campoPesquisa = new JTextField();
         carros = new JButton[4];
@@ -66,6 +58,8 @@ public class Princinpal implements ActionListener, MouseListener {
         btnHistorico = new JButton("H I S T O R I C O");
         btnLogout = new JButton("L O G O U T");
         btnVendas = new JButton("V E N D A S");
+        btnFrente = new JButton(">>");
+        btnTra = new JButton("<<");
         JLabel icon_home = new JLabel(new ImageIcon("icones/home_2.png"));
         JLabel icon_cadastrar = new JLabel(new ImageIcon("icones/cadastrar.png"));
         JLabel icon_historico = new JLabel(new ImageIcon("icones/historico.png"));
@@ -113,7 +107,6 @@ public class Princinpal implements ActionListener, MouseListener {
         Dimensionador.tamanho(pnEsquerdo, btnVendas, 1f, .08f);
         Dimensionador.tamanho(pnEsquerdo, btnLogout, 1f, .08f);
         Dimensionador.tamanho(pnEsquerdo, btnCadastrar, 1f, .08f);
-        //   Dimensionador.tamanho(pnDireito, fotoCarro, .3f, .3f);
         Dimensionador.tamanho(pnDireito, campoPesquisa, .7f, .04f);
         Dimensionador.tamanho(pnDireito, btnPesquisar, .1f, .04f);
         iconeUsuario.setSize(64, 64);
@@ -121,7 +114,6 @@ public class Princinpal implements ActionListener, MouseListener {
         for (int i = 0; i < carros.length; i++) {
             carros[i] = new JButton();
             carros[i].setSize(447, 391);
-            //    carros[i].setBackground(Color.yellow);
             carros[i].setBorder(BorderFactory.createEmptyBorder());
         }
 
@@ -149,12 +141,18 @@ public class Princinpal implements ActionListener, MouseListener {
         btnLogout.addActionListener(this);
         btnLogout.addMouseListener(this);
         carros[0].addActionListener(this);
+        carros[1].addActionListener(this);
+        btnFrente.setSize(150, 50);
+        btnTra.setSize(150, 50);
         //Teste de icone
         // btnHome.add()
 
         //Gambiaras_test
-        carros[0].add(es.get(0).getLbMae());
-        carros[0].add(es.get(1).getLbMae());
+        carros[0].add(es.get(posCarro).getLbMae());
+        carros[1].add(es.get(posCarro+1).getLbMae());
+        carros[2].add(es.get(posCarro+2).getLbMae());
+        carros[3].add(es.get(posCarro+3).getLbMae());
+        
 //        carros[1].add(test[1].getLbMae());
 //        carros[2].add(test[2].getLbMae());
 //        carros[3].add(test[3].getLbMae());
@@ -175,7 +173,7 @@ public class Princinpal implements ActionListener, MouseListener {
         Posicionar.colocaBaixo(pnEsquerdo, btnVendas, btnHistorico);
         Posicionar.moverCimaBaixo(btnHistorico, 2);
         Posicionar.cantoSuperiorEsquerdo(pnDireito, carros[0]);
-        Posicionar.moverCimaBaixo(carros[0], 150);
+        Posicionar.moverCimaBaixo(carros[0], 100);
         Posicionar.moverEsquerdaDireita(carros[0], 50);
         Posicionar.colocaDireita(pnDireito, carros[0], carros[1]);
         Posicionar.moverEsquerdaDireita(carros[1], 50);
@@ -183,8 +181,14 @@ public class Princinpal implements ActionListener, MouseListener {
         Posicionar.moverCimaBaixo(carros[2], 50);
         Posicionar.colocaBaixo(pnDireito, carros[1], carros[3]);
         Posicionar.moverCimaBaixo(carros[3], 50);
+        Posicionar.cantoInferiorDireito(pnDireito, btnFrente);
+        Posicionar.moverCimaBaixo(btnFrente, -35);
+        Posicionar.moverEsquerdaDireita(btnFrente, -55);
+        Posicionar.colocaEsquerda(pnDireito, btnFrente, btnTra);
+        //Posicionar.moverEsquerdaDireita(btnTra, -648);
+        Posicionar.moverEsquerdaDireita(btnTra, -15);
         Posicionar.colocaCima(pnDireito, carros[0], campoPesquisa);
-        Posicionar.moverCimaBaixo(campoPesquisa, -90);
+        Posicionar.moverCimaBaixo(campoPesquisa, -40);
         Posicionar.colocaDireita(pnDireito, campoPesquisa, btnPesquisar);
         Posicionar.moverEsquerdaDireita(btnPesquisar, 10);
         principal.setLocationRelativeTo(null);
@@ -208,6 +212,10 @@ public class Princinpal implements ActionListener, MouseListener {
         this.painelActivo = painelActivo;
     }
 
+    
+    
+    //TRATAMENTO DE EVENTOS
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         JPanel aux = new JPanel();
@@ -220,9 +228,19 @@ public class Princinpal implements ActionListener, MouseListener {
             this.trocaTela(aux);
         }
         if (ae.getSource() == carros[0]) {
+            Carro_controller.preencherDescricao(posCarro);
             aux = car.getPnMae();            
             this.trocaTela(aux);
 
+        }
+        
+        if(ae.getSource() == carros[1]){
+            posCarro++;
+            carros[0].remove(es.get(posCarro-1).getLbMae());
+            carros[0].add(es.get(posCarro).getLbMae());
+            carros[0].revalidate();
+            carros[0].repaint();
+            System.out.println(posCarro);
         }
 
     }

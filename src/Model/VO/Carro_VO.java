@@ -10,18 +10,30 @@ package Model.VO;
  * @author Gui
  */
 public class Carro_VO {
-    public String marca, modelo, preco, chassi, cor;
+    public String marca, modelo, preco, chassi, cor, urlFoto;
     public int numeroChassim, km;
 
-    public Carro_VO(String marca, String modelo, String preco, String chassi, String cor, int numeroChassim, int km) {
+    public Carro_VO(String marca, String modelo, String preco, String chassi, String cor, String urlFoto, int numeroChassim, int km) {
         this.marca = marca;
         this.modelo = modelo;
         this.preco = preco;
         this.chassi = chassi;
         this.cor = cor;
+        this.urlFoto = urlFoto;
         this.numeroChassim = numeroChassim;
         this.km = km;
     }
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
+    }
+
+    
+    
 
     public String getMarca() {
         return marca;
