@@ -6,24 +6,26 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Gui
  */
-public class Venda {
+public class TabelaTransacao {
 
     JPanel pnMae;
     JScrollPane scrol;
     JPanel pnTabela, pn;
     JTable vendas;
 
-    public Venda() {
+    public TabelaTransacao() {
         pnMae = new JPanel();
-        String[] colunas = {"ID","Nome do cliente", "Marca do carro ", "Preço"};
+        String[] colunas = {"ID","Nome do cliente", "Marca do carro ", "Valor a Pagar", "Estado"};
         Object conteudo[][] = null;
         DefaultTableModel model = new DefaultTableModel(conteudo, colunas);
         vendas = new JTable(model);
@@ -33,7 +35,7 @@ public class Venda {
         pnMae.setLayout(new BorderLayout());
         //TAMANHOS 
         pnMae.setSize(1051, 1024);
-        
+
         //POSICOES
         pnMae.add(scrol);
         pnMae.setVisible(true);
@@ -43,5 +45,7 @@ public class Venda {
     public JPanel getPnMae() {
         return pnMae;
     }
+    
+    
 
 }

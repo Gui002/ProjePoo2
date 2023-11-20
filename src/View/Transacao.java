@@ -115,8 +115,4 @@ public class Transacao {
     }
         
 
-    public static void main(String[] args) {
-        new Transacao();
-    }
-
 }

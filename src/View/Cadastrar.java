@@ -8,12 +8,15 @@ package View;
 import javax.swing.*;
 import Utilitarios.*;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  *
  * @author Gui
  */
-public class Cadastrar extends JFrame {
+public class Cadastrar extends JFrame implements ActionListener{
 
     //JFrame pnMae;
     JPanel pnMae;
@@ -21,10 +24,12 @@ public class Cadastrar extends JFrame {
     JTextField marca, modelo, preco, chassi, cor, km;
     JComboBox transmissao, tipoCombustivel;
     JButton btnAdicionar, btnSalvar, btnCancelar;
-    JLabel iconeDescricao;
+    JLabel iconeDescricao, fotoCarro;
+    JFileChooser fc;
 
     Cadastrar() {        
         //pnMae = new JFrame();
+        fc = new JFileChooser();
         pnMae = new JPanel();
         pnCadastro = new JPanel();
         pnFoto = new JPanel();
@@ -34,6 +39,7 @@ public class Cadastrar extends JFrame {
         chassi = new JTextField();
         cor = new JTextField();
         km = new JTextField();
+        fotoCarro = new JLabel();
         btnAdicionar = new JButton("Adicionar Foto");
         btnSalvar = new JButton("Salvar");
         btnCancelar = new JButton("Cancelar");
@@ -67,6 +73,7 @@ public class Cadastrar extends JFrame {
         //TAMANHOS
         Dimensionador.tamanho(pnMae, pnCadastro, .5f, 1f);
         Dimensionador.tamanho(pnMae, pnFoto, .5f, 1f);
+        Dimensionador.tamanho(pnFoto, fotoCarro, .98f, .97f);
         iconeDescricao.setSize(80,80);
         marca.setSize(477, 61);
         modelo.setSize(477, 61);
@@ -80,6 +87,9 @@ public class Cadastrar extends JFrame {
         transmissao.setSize(477, 61);
         tipoCombustivel.setSize(477, 61);
         
+        //EVENTOS
+        btnAdicionar.addActionListener(this);
+        
         //POSICOES
         Posicionar.colocaDireita(pnMae, pnCadastro, pnFoto);
         Posicionar.cantoSuperiorEsquerdo(pnMae, pnCadastro);
@@ -91,7 +101,8 @@ public class Cadastrar extends JFrame {
         Posicionar.colocaEsquerda(pnFoto, btnSalvar, btnCancelar);
         Posicionar.moverEsquerdaDireita(btnCancelar, -5);
         Posicionar.centralizaTopo(pnCadastro, marca);
-        Posicionar.centralizar(pnFoto, btnAdicionar);
+        Posicionar.centralizaTopo(pnFoto, fotoCarro);
+        Posicionar.centralizar(fotoCarro, btnAdicionar);
         Posicionar.moverCimaBaixo(btnAdicionar, -15);
         Posicionar.moverCimaBaixo(marca, 150);
         Posicionar.colocaBaixo(pnCadastro, marca, modelo);
@@ -116,10 +127,19 @@ public class Cadastrar extends JFrame {
     public JPanel getPnMae() {
         return pnMae;
     }
-    
-    
-    public static void main(String[] args) {
-        new Cadastrar();
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+       // btnAdicionar.setVisible(false);
+        int returnVal = fc.showOpenDialog(Cadastrar.this);
+        if(returnVal == JFileChooser.APPROVE_OPTION){
+            File file = fc.getSelectedFile();
+            System.out.println(file.getPath());
+            fotoCarro.setIcon(new ImageIcon(file.getPath()));
+            String nome  = file.getPath();
+            System.out.println(nome+"Olaaa");
+        }
     }
+    
     
 }

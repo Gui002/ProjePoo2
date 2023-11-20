@@ -24,25 +24,29 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 public class Princinpal implements ActionListener, MouseListener {
 
     public static JPanel pnEsquerdo, pnDireito, painelActivo;
-    JButton btnHome, btnCadastrar, btnHistorico, btnLogout, btnPesquisar, btnVendas, btnFrente, btnTra;
+    JButton btnHome, btnCadastrar, btnTransacao, btnLogout, btnPesquisar, btnVendas, btnFrente, btnTra;
     public static JFrame principal;
     JLabel iconeUsuario, nomeUsuario;
     ImageIcon bimas, bim, toyo, lb;
     JTextField campoPesquisa;
     Cadastrar cadastro;
     Carro car;
+    Venda venda;
+    TabelaTransacao tabT;
     int posCarro;
     JButton[] carros;
-    
+
     //Tetando 
-    ArrayList<Estrutura_Carro> es;    
+    ArrayList<Estrutura_Carro> es;
     //
 
     public Princinpal() {
         cadastro = new Cadastrar();
         car = new Carro();
+        venda = new Venda();
+        tabT = new TabelaTransacao();
         posCarro = 0;
-        es = Carro_controller.preencherMain();        
+        es = Carro_controller.preencherMain();
         painelActivo = new JPanel();
         pnEsquerdo = new JPanel();
         pnDireito = new JPanel();
@@ -55,7 +59,7 @@ public class Princinpal implements ActionListener, MouseListener {
         nomeUsuario = new JLabel("GUILHERME");
         btnHome = new JButton("H O M E");
         btnCadastrar = new JButton("C A D A S T R A R");
-        btnHistorico = new JButton("H I S T O R I C O");
+        btnTransacao = new JButton("T R A N S A Ç Ã O");
         btnLogout = new JButton("L O G O U T");
         btnVendas = new JButton("V E N D A S");
         btnFrente = new JButton(">>");
@@ -83,9 +87,9 @@ public class Princinpal implements ActionListener, MouseListener {
         btnCadastrar.setBorder(BorderFactory.createEmptyBorder());
         btnCadastrar.setBackground(new Color(57, 57, 57));
         btnCadastrar.setForeground(Color.white);
-        btnHistorico.setBorder(BorderFactory.createEmptyBorder());
-        btnHistorico.setBackground(new Color(57, 57, 57));
-        btnHistorico.setForeground(Color.white);
+        btnTransacao.setBorder(BorderFactory.createEmptyBorder());
+        btnTransacao.setBackground(new Color(57, 57, 57));
+        btnTransacao.setForeground(Color.white);
         btnVendas.setBorder(BorderFactory.createEmptyBorder());
         btnVendas.setBackground(new Color(57, 57, 57));
         btnVendas.setForeground(Color.white);
@@ -95,7 +99,7 @@ public class Princinpal implements ActionListener, MouseListener {
         nomeUsuario.setForeground(new Color(0, 201, 201));
         btnHome.setFocusable(false);
         btnCadastrar.setFocusable(false);
-        btnHistorico.setFocusable(false);
+        btnTransacao.setFocusable(false);
         btnLogout.setFocusable(false);
         btnVendas.setFocusable(false);
 
@@ -103,7 +107,7 @@ public class Princinpal implements ActionListener, MouseListener {
         Dimensionador.tamanho(principal, pnEsquerdo, .27f, 1f);
         Dimensionador.tamanho(principal, pnDireito, .73f, 1f);
         Dimensionador.tamanho(pnEsquerdo, btnHome, 1f, .08f);
-        Dimensionador.tamanho(pnEsquerdo, btnHistorico, 1f, .08f);
+        Dimensionador.tamanho(pnEsquerdo, btnTransacao, 1f, .08f);
         Dimensionador.tamanho(pnEsquerdo, btnVendas, 1f, .08f);
         Dimensionador.tamanho(pnEsquerdo, btnLogout, 1f, .08f);
         Dimensionador.tamanho(pnEsquerdo, btnCadastrar, 1f, .08f);
@@ -111,6 +115,8 @@ public class Princinpal implements ActionListener, MouseListener {
         Dimensionador.tamanho(pnDireito, btnPesquisar, .1f, .04f);
         iconeUsuario.setSize(64, 64);
         nomeUsuario.setSize(100, 10);
+        btnFrente.setSize(150, 50);
+        btnTra.setSize(150, 50);
         for (int i = 0; i < carros.length; i++) {
             carros[i] = new JButton();
             carros[i].setSize(447, 391);
@@ -120,13 +126,13 @@ public class Princinpal implements ActionListener, MouseListener {
         //Icones
         btnHome.add(icon_home);
         btnCadastrar.add(icon_cadastrar);
-        btnHistorico.add(icon_historico);
+        btnTransacao.add(icon_historico);
         btnLogout.add(icon_sair);
         btnVendas.add(icon_venda);
         btnHome.setFont(fonte);
         btnVendas.setFont(fonte);
         btnCadastrar.setFont(fonte);
-        btnHistorico.setFont(fonte);
+        btnTransacao.setFont(fonte);
         btnLogout.setFont(fonte);
 
         //EVENTOS
@@ -134,25 +140,26 @@ public class Princinpal implements ActionListener, MouseListener {
         btnHome.addMouseListener(this);
         btnCadastrar.addActionListener(this);
         btnCadastrar.addMouseListener(this);
-        btnHistorico.addActionListener(this);
-        btnHistorico.addMouseListener(this);
+        btnTransacao.addActionListener(this);
+        btnTransacao.addMouseListener(this);
         btnVendas.addActionListener(this);
         btnVendas.addMouseListener(this);
         btnLogout.addActionListener(this);
         btnLogout.addMouseListener(this);
         carros[0].addActionListener(this);
         carros[1].addActionListener(this);
-        btnFrente.setSize(150, 50);
-        btnTra.setSize(150, 50);
+        carros[2].addActionListener(this);
+        carros[3].addActionListener(this);
+        btnFrente.addActionListener(this);
+        btnTra.addActionListener(this);
         //Teste de icone
         // btnHome.add()
-
         //Gambiaras_test
         carros[0].add(es.get(posCarro).getLbMae());
-        carros[1].add(es.get(posCarro+1).getLbMae());
-        carros[2].add(es.get(posCarro+2).getLbMae());
-        carros[3].add(es.get(posCarro+3).getLbMae());
-        
+        carros[1].add(es.get(posCarro + 1).getLbMae());
+        carros[2].add(es.get(posCarro + 2).getLbMae());
+        carros[3].add(es.get(posCarro + 3).getLbMae());
+
 //        carros[1].add(test[1].getLbMae());
 //        carros[2].add(test[2].getLbMae());
 //        carros[3].add(test[3].getLbMae());
@@ -170,8 +177,8 @@ public class Princinpal implements ActionListener, MouseListener {
         Posicionar.moverCimaBaixo(btnCadastrar, 1);
         Posicionar.colocaBaixo(pnEsquerdo, btnCadastrar, btnVendas);
         Posicionar.moverCimaBaixo(btnVendas, 2);
-        Posicionar.colocaBaixo(pnEsquerdo, btnVendas, btnHistorico);
-        Posicionar.moverCimaBaixo(btnHistorico, 2);
+        Posicionar.colocaBaixo(pnEsquerdo, btnVendas, btnTransacao);
+        Posicionar.moverCimaBaixo(btnTransacao, 2);
         Posicionar.cantoSuperiorEsquerdo(pnDireito, carros[0]);
         Posicionar.moverCimaBaixo(carros[0], 100);
         Posicionar.moverEsquerdaDireita(carros[0], 50);
@@ -195,15 +202,9 @@ public class Princinpal implements ActionListener, MouseListener {
         principal.setVisible(true);
 
     }
-    
-    //Gambiara 2 Test
-    
-    
-    
-    
-    
-    //
 
+    //Gambiara 2 Test
+    //
     public JPanel getPainelActivo() {
         return painelActivo;
     }
@@ -212,10 +213,7 @@ public class Princinpal implements ActionListener, MouseListener {
         this.painelActivo = painelActivo;
     }
 
-    
-    
     //TRATAMENTO DE EVENTOS
-    
     @Override
     public void actionPerformed(ActionEvent ae) {
         JPanel aux = new JPanel();
@@ -229,22 +227,65 @@ public class Princinpal implements ActionListener, MouseListener {
         }
         if (ae.getSource() == carros[0]) {
             Carro_controller.preencherDescricao(posCarro);
-            aux = car.getPnMae();            
+            aux = car.getPnMae();
             this.trocaTela(aux);
-
+        }
+        if (ae.getSource() == carros[1]) {
+            Carro_controller.preencherDescricao(posCarro + 1);
+            aux = car.getPnMae();
+            this.trocaTela(aux);
+        }
+        if (ae.getSource() == carros[2]) {
+            Carro_controller.preencherDescricao(posCarro + 2);
+            aux = car.getPnMae();
+            this.trocaTela(aux);
+        }
+        if (ae.getSource() == carros[3]) {
+            Carro_controller.preencherDescricao(posCarro + 3);
+            aux = car.getPnMae();
+            this.trocaTela(aux);
         }
         
-        if(ae.getSource() == carros[1]){
-            posCarro++;
-            carros[0].remove(es.get(posCarro-1).getLbMae());
-            carros[0].add(es.get(posCarro).getLbMae());
-            carros[0].revalidate();
-            carros[0].repaint();
-            System.out.println(posCarro);
+        
+        if (ae.getSource() == btnVendas) {
+            Carro_controller.preencherDescricao(posCarro + 3);
+            aux = venda.getPnMae();
+            this.trocaTela(aux);
+        }
+        
+        if (ae.getSource() == btnTransacao) {
+            aux = tabT.getPnMae();
+            this.trocaTela(aux);
+        }
+        
+//
+        if (ae.getSource() == btnTra) {
+            for (int i = 0; i < carros.length; i++) {
+                carros[i].remove(es.get(posCarro + i).getLbMae());
+            }
+            posCarro -= 4;
+            for (int i = 0; i < carros.length; i++) {
+                carros[i].add(es.get(posCarro + i).getLbMae());
+                carros[i].revalidate();
+                carros[i].repaint();
+            }
+
+        }
+        if (ae.getSource() == btnFrente) {
+            
+            for (int i = 0; i < carros.length; i++) {
+                    carros[i].remove(es.get(posCarro + i).getLbMae());
+                }
+                posCarro += 4;
+                for (int i = 0; i < carros.length; i++) {
+                    carros[i].add(es.get(posCarro + i).getLbMae());
+                    carros[i].revalidate();
+                    carros[i].repaint();
+                }            
         }
 
     }
-    
+
     public void trocaTela(JPanel aux) {
         aux.setVisible(true);
         if (painelActivo != aux) {

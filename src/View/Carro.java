@@ -21,8 +21,7 @@ public class Carro implements ActionListener {
 
     JPanel pnMae, pnDescCarro, pnFotoCarro;
     public static JButton btnVender, btnEditar, btnRemover;
-    public static JLabel lblmarca, lblmodelo, lblpreco, lblchassi, lblcor, lblkm, lbltransmissao, lbltipoCombustivel;
-    JLabel fotoCarro;
+    public static JLabel lblmarca, lblmodelo, lblpreco, lblchassi, lblcor, lblkm, lbltransmissao, lbltipoCombustivel, fotoCarro;     
     Cliente client;
 
     Carro() {
@@ -30,7 +29,7 @@ public class Carro implements ActionListener {
         pnMae = new JPanel();
         pnDescCarro = new JPanel();
         pnFotoCarro = new JPanel();
-        fotoCarro = new JLabel("", new ImageIcon("Bimas.jpg"), JLabel.CENTER);
+        fotoCarro = new JLabel();
         btnRemover = new JButton("REMOVER");
         btnVender = new JButton("VENDER");
         btnEditar = new JButton("EDITAR");
@@ -43,6 +42,7 @@ public class Carro implements ActionListener {
         lblmodelo = new JLabel();
         lbltransmissao = new JLabel();
         lbltipoCombustivel = new JLabel();
+        
 
         //SETS
         pnMae.setSize(1051, 1024);
@@ -133,11 +133,4 @@ public class Carro implements ActionListener {
 
     }
     
-    public void trocaTela(JPanel pn){
-        
-    }
-
-    public static void main(String[] args) {
-        new Carro();
-    }
 }
