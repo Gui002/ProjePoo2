@@ -9,9 +9,11 @@ import Utilitarios.Dimensionador;
 import Utilitarios.Posicionar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import javax.swing.BorderFactory;
 import javax.swing.*;
 import javax.swing.JPanel;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -23,7 +25,9 @@ public class Cliente implements ActionListener{
     JPanel pnMae;
     JPanel pnFormCliente;
     JLabel iconeCliente;
-    JTextField nomeCliente, apelidoCliente, contactoCliente, dataNascimento, endereco;
+    JTextField nomeCliente, apelidoCliente, contactoCliente,  endereco;
+    JFormattedTextField dataNascimento;
+    MaskFormatter formato = null;
     JButton btnSalvar;
     Transacao t;
     Cliente() {
@@ -33,11 +37,20 @@ public class Cliente implements ActionListener{
         pnFormCliente = new JPanel();
         nomeCliente = new JTextField();
         apelidoCliente = new JTextField();
-        contactoCliente = new JTextField();
-        dataNascimento = new JTextField();
+        contactoCliente = new JTextField();        
         endereco = new JTextField();
         iconeCliente = new JLabel("", new ImageIcon("icones/userAzul.png"), JLabel.CENTER);
         btnSalvar = new JButton("SALVAR");
+           try {
+            formato = new MaskFormatter("## / ## / ####");
+            formato.setPlaceholderCharacter('-');
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        dataNascimento = new JFormattedTextField(formato);
+        dataNascimento.setHorizontalAlignment(SwingConstants.CENTER);
 
         //SETS
         //  pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

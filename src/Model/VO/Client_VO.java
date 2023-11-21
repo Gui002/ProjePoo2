@@ -10,10 +10,10 @@ package Model.VO;
  * @author Gui
  */
 public class Client_VO {
-    public String nomeCliente, apelidoCliente, dataNascimento, endereco;
-    public int contactoCliente;
 
-    public Client_VO(String nomeCliente, String apelidoCliente, String dataNascimento, String endereco, int contactoCliente) {
+    public String nomeCliente, apelidoCliente, dataNascimento, endereco, contactoCliente;
+
+    public Client_VO(String nomeCliente, String apelidoCliente, String dataNascimento, String endereco, String contactoCliente) {
         this.nomeCliente = nomeCliente;
         this.apelidoCliente = apelidoCliente;
         this.dataNascimento = dataNascimento;
@@ -53,13 +53,4 @@ public class Client_VO {
         this.endereco = endereco;
     }
 
-    public int getContactoCliente() {
-        return contactoCliente;
-    }
-
-    public void setContactoCliente(int contactoCliente) {
-        this.contactoCliente = contactoCliente;
-    }
-    
-    
 }

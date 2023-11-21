@@ -23,7 +23,7 @@ public class Carro_controller {
         
         for (int i = 0; i < bdCar.size(); i++) {
             Carro_VO listCarro = bdCar.get(i);
-            cars.add(new Estrutura_Carro(listCarro.getMarca(),listCarro.getPreco(), new ImageIcon(listCarro.getUrlFoto())));
+            cars.add(new Estrutura_Carro(listCarro.getMarca(),""+listCarro.getPreco()+" MZN ", new ImageIcon(listCarro.getUrlFoto())));
         }
         
         return cars;
@@ -31,14 +31,15 @@ public class Carro_controller {
 
     //Testando metodo para preencher caaro clicado 
     public static ArrayList<Carro_VO> preenCher() {
-        Carro_VO c = new Carro_VO("Guito", "zipzap", "2 . 0 0 0 . 0 0 0  MZN", "numero", "AZUL", "bimas.jpg", 1, 1);
-        Carro_VO c2 = new Carro_VO("Broo", "zipzap", "2 . 0 0 0 . 0 0 0  MZN", "numero", "AZUL", "Toyota.jpeg", 1, 1);
-        Carro_VO c3 = new Carro_VO("Broo", "zipzap", "2 . 0 0 0 . 0 0 0  MZN", "numero", "AZUL", "X6.jpeg", 1, 1);
-        Carro_VO c4 = new Carro_VO("Broo", "zipzap", "2 . 0 0 0 . 0 0 0  MZN", "numero", "AZUL", "Lambo.jpeg", 1, 1);
-        Carro_VO c5 = new Carro_VO("Broo", "zipzap", "2 . 0 0 0 . 0 0 0  MZN", "numero", "AZUL", "x.jpeg", 1, 1);
-        Carro_VO c6 = new Carro_VO("Broo", "zipzap", "2 . 0 0 0 . 0 0 0  MZN", "numero", "AZUL", "1.jpg", 1, 1);
-        Carro_VO c7 = new Carro_VO("Broo", "zipzap", "2 . 0 0 0 . 0 0 0  MZN", "numero", "AZUL", "2.jpg", 1, 1);
-        Carro_VO c8 = new Carro_VO("Broo", "zipzap", "2 . 0 0 0 . 0 0 0  MZN", "numero", "AZUL", "3.jpg", 1, 1);
+                       //Carro_VO(String marca, String modelo, String cor, String urlFoto, String tipoCombustivel, String transm, int numeroChassim, int km, int preco)
+        Carro_VO c = new Carro_VO("Guito", "zipzap", "AZUL", "bimas.jpg", "DIESEL", "Manual", "9BD111060T5002156", 1, 2000000);
+        Carro_VO c2 = new Carro_VO("Guito", "zipzap", "AZUL", "Toyota.jpeg", "DIESEL", "Manual", "", 1, 2000000);
+        Carro_VO c3 = new Carro_VO("Guito", "zipzap", "AZUL", "X6.jpeg", "DIESEL", "Manual", "", 1, 2000000);
+        Carro_VO c4 = new Carro_VO("Guito", "zipzap", "AZUL", "Lambo.jpeg", "DIESEL", "Manual", "", 1, 2000000);
+        Carro_VO c5 = new Carro_VO("Guito", "zipzap", "AZUL", "x.jpg", "DIESEL", "Manual", "", 1, 2000000);
+        Carro_VO c6 = new Carro_VO("Guito", "zipzap", "AZUL", "1.jpg", "GASOLINA", "Manual", "", 1, 2000000);
+        Carro_VO c7 = new Carro_VO("Guito", "zipzap", "AZUL", "2.jpg", "DIESEL", "Manual", "", 1, 2000000);
+        Carro_VO c8 = new Carro_VO("Guito", "zipzap", "AZUL", "3.jpg", "DIESEL", "Manual", "", 1, 2000000);
         ArrayList<Carro_VO> car = new ArrayList();
         car.add(c);
         car.add(c2);
@@ -58,10 +59,12 @@ public class Carro_controller {
         Carro.lblmarca.setText(car.getMarca());
         Carro.lblmodelo.setText(car.getModelo());
         Carro.fotoCarro.setIcon(new ImageIcon(car.getUrlFoto()));
-        Carro.lblchassi.setText(car.getChassi());
+        Carro.lblchassi.setText(""+car.getNumeroChassim());
         Carro.lblkm.setText("" + car.getKm());
         Carro.lblcor.setText(car.getCor());
-        Carro.lblpreco.setText(car.getPreco());
+        Carro.lblpreco.setText(""+car.getPreco());
+        Carro.lbltransmissao.setText(car.getTransm());
+        Carro.lbltipoCombustivel.setText(car.getTipoCombustivel());
         
     }
 }
