@@ -5,10 +5,13 @@
  */
 package Model.DAO;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Gui
  */
-public interface CRUD {
-    public abstract void select();
+public interface CRUD<E> {
+    public abstract ArrayList<E> select();
+    public abstract  void insert(E e);
 }

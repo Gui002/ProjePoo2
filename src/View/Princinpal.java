@@ -152,17 +152,14 @@ public class Princinpal implements ActionListener, MouseListener {
         carros[3].addActionListener(this);
         btnFrente.addActionListener(this);
         btnTra.addActionListener(this);
-        //Teste de icone
-        // btnHome.add()
-        //Gambiaras_test
-        carros[0].add(es.get(posCarro).getLbMae());
-        carros[1].add(es.get(posCarro + 1).getLbMae());
-        carros[2].add(es.get(posCarro + 2).getLbMae());
-        carros[3].add(es.get(posCarro + 3).getLbMae());
+        for (int i = 0; i < carros.length; i++) {
+            try {
+                carros[i].add(es.get(posCarro + i).getLbMae());
+            }catch(IndexOutOfBoundsException e){
+                carros[i].add(new JLabel("SEM CARRO", JLabel.CENTER));
+            }
+        }
 
-//        carros[1].add(test[1].getLbMae());
-//        carros[2].add(test[2].getLbMae());
-//        carros[3].add(test[3].getLbMae());
         //POSICOES
         Posicionar.cantoSuperiorEsquerdo(principal, pnEsquerdo);
         Posicionar.centralizaTopo(pnEsquerdo, iconeUsuario);
@@ -245,19 +242,18 @@ public class Princinpal implements ActionListener, MouseListener {
             aux = car.getPnMae();
             this.trocaTela(aux);
         }
-        
-        
+
         if (ae.getSource() == btnVendas) {
             Carro_controller.preencherDescricao(posCarro + 3);
             aux = venda.getPnMae();
             this.trocaTela(aux);
         }
-        
+
         if (ae.getSource() == btnTransacao) {
             aux = tabT.getPnMae();
             this.trocaTela(aux);
         }
-        
+
 //
         if (ae.getSource() == btnTra) {
             for (int i = 0; i < carros.length; i++) {
@@ -271,17 +267,18 @@ public class Princinpal implements ActionListener, MouseListener {
             }
 
         }
+        
         if (ae.getSource() == btnFrente) {
-            
+
             for (int i = 0; i < carros.length; i++) {
-                    carros[i].remove(es.get(posCarro + i).getLbMae());
-                }
-                posCarro += 4;
-                for (int i = 0; i < carros.length; i++) {
-                    carros[i].add(es.get(posCarro + i).getLbMae());
-                    carros[i].revalidate();
-                    carros[i].repaint();
-                }            
+                carros[i].remove(es.get(posCarro + i).getLbMae());
+            }
+            posCarro += 4;
+            for (int i = 0; i < carros.length; i++) {
+                carros[i].add(es.get(posCarro + i).getLbMae());
+                carros[i].revalidate();
+                carros[i].repaint();
+            }
         }
 
     }

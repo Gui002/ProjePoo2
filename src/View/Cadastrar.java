@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Carro_controller;
 import javax.swing.*;
 import Utilitarios.*;
 import java.awt.Color;
@@ -16,19 +17,21 @@ import java.io.File;
  *
  * @author Gui
  */
-public class Cadastrar extends JFrame implements ActionListener{
+public class Cadastrar extends JFrame implements ActionListener {
 
     //JFrame pnMae;
     JPanel pnMae;
     JPanel pnCadastro, pnFoto;
-    JTextField marca, modelo, preco, chassi, cor, km;
-    JComboBox transmissao, tipoCombustivel;
+    public static JTextField marca, modelo, preco, chassi, cor, km;
+    public static JComboBox transmissao, tipoCombustivel;
     JButton btnAdicionar, btnSalvar, btnCancelar;
     JLabel iconeDescricao, fotoCarro;
     JFileChooser fc;
+    static String url;
 
-    Cadastrar() {        
+    Cadastrar() {
         //pnMae = new JFrame();
+        url = "";
         fc = new JFileChooser();
         pnMae = new JPanel();
         pnCadastro = new JPanel();
@@ -48,17 +51,16 @@ public class Cadastrar extends JFrame implements ActionListener{
         String[] combus = {"Diesel", "Gasolina"};
         tipoCombustivel = new JComboBox(combus);
         iconeDescricao = new JLabel("", new ImageIcon("icones/descricao.png"), JLabel.CENTER);
-       
-       
+
         //SETS
         pnMae.setSize(1051, 1024);
         pnMae.setLayout(null);
         pnCadastro.setLayout(null);
         pnFoto.setLayout(null);
-       // pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pnCadastro.setBorder(BorderFactory.createTitledBorder("CADASTRAR"));
         //pnCadastro.setBackground(new Color(163, 163, 163));
-       // pnFoto.setBackground(new Color(163, 163, 163));
+        // pnFoto.setBackground(new Color(163, 163, 163));
         pnFoto.setBorder(BorderFactory.createTitledBorder("FOTO"));
         marca.setBorder(BorderFactory.createTitledBorder("Marca"));
         modelo.setBorder(BorderFactory.createTitledBorder("Modelo"));
@@ -68,13 +70,12 @@ public class Cadastrar extends JFrame implements ActionListener{
         km.setBorder(BorderFactory.createTitledBorder("Km"));
         transmissao.setBorder(BorderFactory.createTitledBorder("Transmissão"));
         tipoCombustivel.setBorder(BorderFactory.createTitledBorder("Tipo de Combustivel"));
-        
 
         //TAMANHOS
         Dimensionador.tamanho(pnMae, pnCadastro, .5f, 1f);
         Dimensionador.tamanho(pnMae, pnFoto, .5f, 1f);
         Dimensionador.tamanho(pnFoto, fotoCarro, .98f, .97f);
-        iconeDescricao.setSize(80,80);
+        iconeDescricao.setSize(80, 80);
         marca.setSize(477, 61);
         modelo.setSize(477, 61);
         chassi.setSize(477, 61);
@@ -86,10 +87,11 @@ public class Cadastrar extends JFrame implements ActionListener{
         btnAdicionar.setSize(477, 61);
         transmissao.setSize(477, 61);
         tipoCombustivel.setSize(477, 61);
-        
+
         //EVENTOS
         btnAdicionar.addActionListener(this);
-        
+        btnSalvar.addActionListener(this);
+
         //POSICOES
         Posicionar.colocaDireita(pnMae, pnCadastro, pnFoto);
         Posicionar.cantoSuperiorEsquerdo(pnMae, pnCadastro);
@@ -114,13 +116,12 @@ public class Cadastrar extends JFrame implements ActionListener{
         Posicionar.colocaBaixo(pnCadastro, chassi, cor);
         Posicionar.moverCimaBaixo(cor, 10);
         Posicionar.colocaBaixo(pnCadastro, cor, km);
-        Posicionar.moverCimaBaixo(km, 10);    
+        Posicionar.moverCimaBaixo(km, 10);
         Posicionar.colocaBaixo(pnCadastro, km, transmissao);
         Posicionar.moverCimaBaixo(transmissao, 10);
         Posicionar.colocaBaixo(pnCadastro, transmissao, tipoCombustivel);
         Posicionar.moverCimaBaixo(tipoCombustivel, 10);
-    
-        
+
         pnMae.setVisible(true);
     }
 
@@ -128,18 +129,28 @@ public class Cadastrar extends JFrame implements ActionListener{
         return pnMae;
     }
 
+    public static String getUrl() {
+        return url;
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
-       // btnAdicionar.setVisible(false);
-        int returnVal = fc.showOpenDialog(Cadastrar.this);
-        if(returnVal == JFileChooser.APPROVE_OPTION){
-            File file = fc.getSelectedFile();
-            System.out.println(file.getPath());
-            fotoCarro.setIcon(new ImageIcon(file.getPath()));
-            String nome  = file.getPath();
-            System.out.println(nome+"Olaaa");
+        // btnAdicionar.setVisible(false);
+        if (ae.getSource() == btnAdicionar) {
+            int returnVal = fc.showOpenDialog(Cadastrar.this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                System.out.println(file.getPath());
+                fotoCarro.setIcon(new ImageIcon(file.getPath()));
+                String caminho = file.getPath();
+                url = caminho;
+            }
+        }
+
+        if (ae.getSource() == btnSalvar) {
+            Carro_controller.adicionarCarro();
+            Carro_controller.preencherMain();
         }
     }
-    
-    
+
 }
