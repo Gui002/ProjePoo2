@@ -5,6 +5,8 @@
  */
 package View;
 
+import Controller.Cliente_controller;
+import Controller.Transacao_controller;
 import Utilitarios.Dimensionador;
 import Utilitarios.Posicionar;
 import java.awt.event.ActionEvent;
@@ -19,29 +21,30 @@ import javax.swing.text.MaskFormatter;
  *
  * @author Gui
  */
-public class Cliente implements ActionListener{
+public class Cliente implements ActionListener {
 
     //JFrame pnMae;
     JPanel pnMae;
     JPanel pnFormCliente;
     JLabel iconeCliente;
-    JTextField nomeCliente, apelidoCliente, contactoCliente,  endereco;
-    JFormattedTextField dataNascimento;
+    public static JTextField nomeCliente, apelidoCliente, contactoCliente, endereco;
+    public static JFormattedTextField dataNascimento;
     MaskFormatter formato = null;
     JButton btnSalvar;
     Transacao t;
+
     Cliente() {
-        //  pnMae = new JFrame();
+        //pnMae = new JFrame();
         pnMae = new JPanel();
         t = new Transacao();
         pnFormCliente = new JPanel();
         nomeCliente = new JTextField();
         apelidoCliente = new JTextField();
-        contactoCliente = new JTextField();        
+        contactoCliente = new JTextField();
         endereco = new JTextField();
         iconeCliente = new JLabel("", new ImageIcon("icones/userAzul.png"), JLabel.CENTER);
         btnSalvar = new JButton("SALVAR");
-           try {
+        try {
             formato = new MaskFormatter("## / ## / ####");
             formato.setPlaceholderCharacter('-');
 
@@ -71,7 +74,7 @@ public class Cliente implements ActionListener{
         contactoCliente.setSize(477, 61);
         dataNascimento.setSize(477, 61);
         btnSalvar.setSize(150, 50);
-        
+
         //EVENTOS
         btnSalvar.addActionListener(this);
 
@@ -97,11 +100,17 @@ public class Cliente implements ActionListener{
         return pnMae;
     }
 
-
     @Override
     public void actionPerformed(ActionEvent ae) {
-            JPanel aux = new JPanel();
+        JPanel aux = new JPanel();
         if (ae.getSource() == btnSalvar) {
+            //  Cliente_controller.adicionarCliente();
+            Transacao_controller.dadosCliente();
+            //Cliente_controller.listarCliente();
+            //Iniciar Transacao
+
+            //
+            System.out.println(dataNascimento.getText());
             aux = t.getPnMae();
             aux.setVisible(true);
             if (Princinpal.painelActivo != aux) {
@@ -111,4 +120,5 @@ public class Cliente implements ActionListener{
             }
         }
     }
+
 }

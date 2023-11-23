@@ -14,4 +14,6 @@ import java.util.ArrayList;
 public interface CRUD<E> {
     public abstract ArrayList<E> select();
     public abstract  void insert(E e);
+    public abstract void update (int e);
+    public abstract void delete(int e);
 }

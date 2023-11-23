@@ -22,7 +22,8 @@ public class Conexao {
 
     public Conexao() {
         this.host = "localhost";
-        this.nomeDoBD = "loja";
+        //this.nomeDoBD = "loja";
+        this.nomeDoBD = "concessionaria";
         this.usuario = "root";
         this.senha = "";
     }

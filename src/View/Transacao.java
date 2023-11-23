@@ -5,33 +5,43 @@
  */
 package View;
 
+import Controller.Transacao_controller;
 import javax.swing.*;
 import Utilitarios.Dimensionador;
 import Utilitarios.Posicionar;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Gui
  */
-public class Transacao {
+public class Transacao implements ActionListener {
 
     //JFrame pnMae;
     JPanel pnMae;
     JPanel pnTransacao, pnParcela;
-    JLabel nomeCliente, marca, preco, status, data, nrParcelas, precoParcela, iconeTransacao, iconeDinheiro;
-    JTextField numParcelas;
+    public static JLabel nombre, marca, preco, status, data, nrParcelas, precoParcela, iconeTransacao, iconeDinheiro;
+    public static JTextField numParcelas;
     JButton btnConfirmar, btnCancelar;
-    JComboBox formaPagamento, metodoPagamento;
-    
+    public static JComboBox formaPagamento, metodoPagamento;
+    public static boolean verifica;
+    public static int novoValor, idTr;
+
     public Transacao() {
-       // pnMae = new JFrame();
+        // pnMae = new JFrame();
+        novoValor = 0;
+        idTr = 0;
+        verifica = false;
         pnMae = new JPanel();
         pnTransacao = new JPanel();
-        nomeCliente = new JLabel();
+        nombre = new JLabel();
         marca = new JLabel();
         preco = new JLabel();
-        status = new JLabel();
+        status = new JLabel("-----");
         data = new JLabel();
         precoParcela = new JLabel();
         nrParcelas = new JLabel();
@@ -55,7 +65,7 @@ public class Transacao {
         pnParcela.setBorder(BorderFactory.createTitledBorder("Pacelado"));
         formaPagamento.setBorder(BorderFactory.createTitledBorder("Forma de Pagamento"));
         marca.setBorder(BorderFactory.createTitledBorder("Marca"));
-        nomeCliente.setBorder(BorderFactory.createTitledBorder("Nome do Cliente"));
+        nombre.setBorder(BorderFactory.createTitledBorder("Nome do Cliente"));
         preco.setBorder(BorderFactory.createTitledBorder("Valor a pagar"));
         status.setBorder(BorderFactory.createTitledBorder("Estado"));
         data.setBorder(BorderFactory.createTitledBorder("Data"));
@@ -63,7 +73,7 @@ public class Transacao {
         nrParcelas.setBorder(BorderFactory.createTitledBorder("Numde de parcelas"));
         precoParcela.setBorder(BorderFactory.createTitledBorder("Preço da parcelas"));
         numParcelas.setBorder(BorderFactory.createTitledBorder("Pacelas a pagar"));
-      //  pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //  pnMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //TAMANHOS 
         Dimensionador.tamanho(pnMae, pnTransacao, .5f, 1f);
@@ -72,7 +82,7 @@ public class Transacao {
         formaPagamento.setSize(477, 61);
         precoParcela.setSize(477, 61);
         numParcelas.setSize(477, 61);
-        nomeCliente.setSize(477, 61);
+        nombre.setSize(477, 61);
         nrParcelas.setSize(477, 61);
         status.setSize(477, 61);
         marca.setSize(477, 61);
@@ -82,6 +92,9 @@ public class Transacao {
         iconeDinheiro.setSize(80, 80);
         btnConfirmar.setSize(150, 50);
         btnCancelar.setSize(150, 50);
+
+        //EVENTOS
+        btnConfirmar.addActionListener(this);
 
         //POSICOES
         Posicionar.centralizar(pnTransacao, formaPagamento);
@@ -100,19 +113,39 @@ public class Transacao {
         Posicionar.moverEsquerdaDireita(btnConfirmar, -20);
         Posicionar.colocaEsquerda(pnParcela, btnConfirmar, btnCancelar);
         Posicionar.moverEsquerdaDireita(btnCancelar, -5);
-        Posicionar.centralizaTopo(pnTransacao, nomeCliente);
-        Posicionar.moverCimaBaixo(nomeCliente, 150);
-        Posicionar.colocaBaixo(pnTransacao, nomeCliente, marca);
+        Posicionar.centralizaTopo(pnTransacao, nombre);
+        Posicionar.moverCimaBaixo(nombre, 150);
+        Posicionar.colocaBaixo(pnTransacao, nombre, marca);
         Posicionar.colocaBaixo(pnTransacao, marca, preco);
         Posicionar.colocaBaixo(pnTransacao, preco, status);
         Posicionar.cantoSuperiorEsquerdo(pnMae, pnTransacao);
         pnMae.setVisible(true);
-   //     pnMae.setLocationRelativeTo(null);
+        //     pnMae.setLocationRelativeTo(null);
     }
 
     public JPanel getPnMae() {
         return pnMae;
     }
-        
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        nombre.setText("Na boa");
+        System.out.println("Oiii");
+//        if (ae.getSource() == btnConfirmar) {
+//            if (verifica) {
+//                int n = Integer.parseInt(numParcelas.getText());
+//                novoValor = Integer.parseInt(preco.getText().trim()) - n*(Integer.parseInt(precoParcela.getText().trim()));
+//                Transacao_controller.adicionarTransacao();
+//            }else{
+//                novoValor = 0;
+//                try {
+//                    Transacao_controller.actualizar(idTr, novoValor);
+//                } catch (ClassNotFoundException ex) {
+//                    Logger.getLogger(Transacao.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                verifica = !verifica;
+//            }
+//        }
+    }
 
 }

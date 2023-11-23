@@ -19,7 +19,7 @@ public class Venda {
     JPanel pnMae;
     JScrollPane scrol;
     JPanel pnTabela, pn;
-    JTable vendas;
+    public static JTable vendas;
 
     public Venda() {
         pnMae = new JPanel();

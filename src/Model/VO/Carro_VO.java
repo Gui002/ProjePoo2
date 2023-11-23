@@ -11,10 +11,10 @@ package Model.VO;
  */
 public class Carro_VO {
 
-    public String marca, modelo, cor, urlFoto, tipoCombustivel, transm,  numeroChassim;
-    public int km, preco;
+    public String marca, modelo, cor, urlFoto, tipoCombustivel, transm, numeroChassim;
+    public int km, preco, idCarro;
 
-    public Carro_VO(String marca, String modelo, String cor, String urlFoto, String tipoCombustivel, String transm, String numeroChassim, int km, int preco) {
+    public Carro_VO(String marca, String modelo, String cor, String urlFoto, String tipoCombustivel, String transm, String numeroChassim, int km, int preco, int idCarro) {
         this.marca = marca;
         this.modelo = modelo;
         this.cor = cor;
@@ -23,11 +23,18 @@ public class Carro_VO {
         this.transm = transm;
         this.numeroChassim = numeroChassim;
         this.km = km;
+        this.idCarro = idCarro;
         this.preco = preco;
     }
 
+    public int getIdCarro() {
+        return idCarro;
+    }
 
-
+    public void setIdCarro(int idCarro) {
+        this.idCarro = idCarro;
+    }
+    
     public String getTipoCombustivel() {
         return tipoCombustivel;
     }
@@ -76,7 +83,6 @@ public class Carro_VO {
         this.preco = preco;
     }
 
-   
     public String getCor() {
         return cor;
     }

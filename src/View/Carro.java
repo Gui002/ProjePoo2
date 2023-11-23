@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Transacao_controller;
 import Utilitarios.Dimensionador;
 import Utilitarios.Posicionar;
 import static View.Princinpal.principal;
@@ -26,7 +27,7 @@ public class Carro implements ActionListener {
 
     Carro() {
         client = new Cliente();
-        pnMae = new JPanel();
+        pnMae = new JPanel();   
         pnDescCarro = new JPanel();
         pnFotoCarro = new JPanel();
         fotoCarro = new JLabel();
@@ -122,6 +123,7 @@ public class Carro implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         JPanel aux = new JPanel();
         if (ae.getSource() == btnVender) {
+            Transacao_controller.dadosCarro();
             aux = client.getPnMae();
             aux.setVisible(true);
             if (Princinpal.painelActivo != aux) {

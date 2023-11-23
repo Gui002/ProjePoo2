@@ -6,6 +6,7 @@
 package View;
 
 import Controller.Carro_controller;
+import Controller.Transacao_controller;
 import Utilitarios.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -26,25 +29,26 @@ public class Princinpal implements ActionListener, MouseListener {
     public static JPanel pnEsquerdo, pnDireito, painelActivo;
     JButton btnHome, btnCadastrar, btnTransacao, btnLogout, btnPesquisar, btnVendas, btnFrente, btnTra;
     public static JFrame principal;
-    JLabel iconeUsuario, nomeUsuario;
-    ImageIcon bimas, bim, toyo, lb;
+    public static JLabel iconeUsuario, nomeUsuario;
     JTextField campoPesquisa;
     Cadastrar cadastro;
     Carro car;
     Venda venda;
-    TabelaTransacao tabT;
-    int posCarro;
-    JButton[] carros;
+    Tabela tabT;
+    public static int posCarro, idCarro;
+    public static int idFuncionario;
+    static JButton[] carros;
+     Transacao_controller tr;
 
     //Tetando 
     ArrayList<Estrutura_Carro> es;
     //
 
-    public Princinpal() {
+    public Princinpal() throws ClassNotFoundException {          
         cadastro = new Cadastrar();
         car = new Carro();
         venda = new Venda();
-        tabT = new TabelaTransacao();
+        tabT = new Tabela();
         posCarro = 0;
         es = Carro_controller.preencherMain();
         painelActivo = new JPanel();
@@ -155,7 +159,7 @@ public class Princinpal implements ActionListener, MouseListener {
         for (int i = 0; i < carros.length; i++) {
             try {
                 carros[i].add(es.get(posCarro + i).getLbMae());
-            }catch(IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 carros[i].add(new JLabel("SEM CARRO", JLabel.CENTER));
             }
         }
@@ -213,6 +217,7 @@ public class Princinpal implements ActionListener, MouseListener {
     //TRATAMENTO DE EVENTOS
     @Override
     public void actionPerformed(ActionEvent ae) {
+
         JPanel aux = new JPanel();
         if (ae.getSource() == btnCadastrar) {
             aux = cadastro.getPnMae();
@@ -220,64 +225,99 @@ public class Princinpal implements ActionListener, MouseListener {
         }
         if (ae.getSource() == btnHome) {
             aux = pnDireito;
+            es = Carro_controller.preencherMain();
+            for (int i = 0; i < carros.length; i++) {
+                try {
+                    carros[i].add(es.get(posCarro + i).getLbMae());
+                    carros[i].revalidate();
+                    carros[i].repaint();
+                } catch (IndexOutOfBoundsException e) {
+                    carros[i].add(new JLabel("SEM CARRO", JLabel.CENTER));
+                }
+            }
+
             this.trocaTela(aux);
         }
         if (ae.getSource() == carros[0]) {
             Carro_controller.preencherDescricao(posCarro);
+            idCarro = Carro_controller.listarCarro(posCarro);
+            Transacao_controller.dadosCarro();
             aux = car.getPnMae();
             this.trocaTela(aux);
         }
         if (ae.getSource() == carros[1]) {
             Carro_controller.preencherDescricao(posCarro + 1);
+            idCarro = Carro_controller.listarCarro(posCarro + 1);
             aux = car.getPnMae();
             this.trocaTela(aux);
         }
         if (ae.getSource() == carros[2]) {
             Carro_controller.preencherDescricao(posCarro + 2);
+            idCarro = Carro_controller.listarCarro(posCarro + 2);
             aux = car.getPnMae();
             this.trocaTela(aux);
         }
         if (ae.getSource() == carros[3]) {
             Carro_controller.preencherDescricao(posCarro + 3);
+            idCarro = Carro_controller.listarCarro(posCarro + 3);
             aux = car.getPnMae();
             this.trocaTela(aux);
         }
 
         if (ae.getSource() == btnVendas) {
-            Carro_controller.preencherDescricao(posCarro + 3);
+            try {
+                tr.listarVenda();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Princinpal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             aux = venda.getPnMae();
             this.trocaTela(aux);
         }
 
-        if (ae.getSource() == btnTransacao) {
+        if (ae.getSource() == btnTransacao) { 
+            try {
+                tr.listar();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Princinpal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             aux = tabT.getPnMae();
             this.trocaTela(aux);
         }
 
 //
         if (ae.getSource() == btnTra) {
+            posCarro -= 3;
             for (int i = 0; i < carros.length; i++) {
                 carros[i].remove(es.get(posCarro + i).getLbMae());
             }
-            posCarro -= 4;
             for (int i = 0; i < carros.length; i++) {
-                carros[i].add(es.get(posCarro + i).getLbMae());
-                carros[i].revalidate();
-                carros[i].repaint();
+                System.out.println(posCarro);
+                try {
+                    carros[i].add(es.get(posCarro + i).getLbMae());
+                    carros[i].revalidate();
+                    carros[i].repaint();
+                } catch (IndexOutOfBoundsException e) {
+                    carros[i].add(new JLabel("SEM CARRO", JLabel.CENTER));
+                }
             }
 
         }
-        
+
         if (ae.getSource() == btnFrente) {
 
             for (int i = 0; i < carros.length; i++) {
                 carros[i].remove(es.get(posCarro + i).getLbMae());
             }
-            posCarro += 4;
+            posCarro += 3;
             for (int i = 0; i < carros.length; i++) {
-                carros[i].add(es.get(posCarro + i).getLbMae());
-                carros[i].revalidate();
-                carros[i].repaint();
+                System.out.println(posCarro);
+                try {
+                    carros[i].add(es.get(posCarro + i).getLbMae());
+                    carros[i].revalidate();
+                    carros[i].repaint();
+                } catch (IndexOutOfBoundsException e) {
+                    carros[i].add(new JLabel("SEM CARRO", JLabel.CENTER));
+                }
             }
         }
 
@@ -290,6 +330,14 @@ public class Princinpal implements ActionListener, MouseListener {
             Posicionar.colocaDireita(principal, pnEsquerdo, aux);
             setPainelActivo(aux);
         }
+    }
+
+    public int getIdCarro() {
+        return idCarro;
+    }
+
+    public void setIdCarro(int idCarro) {
+        this.idCarro = idCarro;
     }
 
     @Override
